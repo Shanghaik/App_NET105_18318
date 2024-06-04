@@ -1,3 +1,6 @@
+﻿using MVC_CRUD.IServices;
+using MVC_CRUD.Services;
+
 namespace MVC_CRUD
 {
     public class Program
@@ -5,8 +8,11 @@ namespace MVC_CRUD
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            builder.Services.AddTransient<IProductServices, ProductServices>();
             // Add services to the container.
+            // Transient: Vòng đời ngắn nhất - cần gọi đến Services thì nó sẽ được tạo ra. 
+            // Scope: Cũng được tạo ra nhưng sống cho đến khi Hết request chứa nó.
+            // Singleton: Tạo ra và sống cho đến khi app hẹo.
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
